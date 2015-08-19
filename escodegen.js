@@ -895,35 +895,36 @@
                 s = 'void';
                 break;
             case 'ObjectTypeAnnotation':
-                s = '{' + 
+                s = '{' +
                     annotation.properties.map(generateTypeAnnotation).concat(
                     annotation.indexers.map(generateTypeAnnotation)).join(',') +
                     '}';
-                if(annotation.callProperties&&annotation.callProperties.length) 
-                  throw "TODO";
+                if(annotation.callProperties && annotation.callProperties.length) {
+                    throw "TODO";
+                }
                 break;
             case 'ObjectTypeIndexer':
-                s = '['+ generateIdentifier(annotation.id)+ 
-                    ':'+ generateTypeAnnotation(annotation.key)+
-                     ']:'+ generateTypeAnnotation(annotation.value);
+                s = '[' + generateIdentifier(annotation.id) +
+                    ':' + generateTypeAnnotation(annotation.key) +
+                     ']:' + generateTypeAnnotation(annotation.value);
                 break;
             case 'ObjectTypeProperty':
                 if (annotation.value.type ===  'FunctionTypeAnnotation' && annotation.key)
                 {
-                     s = generateIdentifier(annotation.key) 
-                       + (annotation.value.typeParameters?generateTypeAnnotation(annotation.value.typeParameters):'')
-                       + '('+
-                       annotation.value.params.map(generateTypeAnnotation).join(',')+
-                       (annotation.value.rest?
-                          (annotation.value.params.length?',':'')+
-                          '...'+generateTypeAnnotation(annotation.value.rest):'')+
+                     s = generateIdentifier(annotation.key)
+                       + (annotation.value.typeParameters ? generateTypeAnnotation(annotation.value.typeParameters) : '')
+                       + '(' +
+                       annotation.value.params.map(generateTypeAnnotation).join(',') +
+                       (annotation.value.rest ?
+                          (annotation.value.params.length ? ',' : '') +
+                          '...' + generateTypeAnnotation(annotation.value.rest) : '') +
                        ') : ' +
                        generateTypeAnnotation(annotation.value.returnType);
                 }
                 else {
-                    s = generateIdentifier(annotation.key)+
-                      (annotation.optional?'?':'')+
-                      ':'+
+                    s = generateIdentifier(annotation.key) +
+                      (annotation.optional ? '?' : '') +
+                      ':' +
                       generateTypeAnnotation(annotation.value);
                 }
                 break;
@@ -938,39 +939,39 @@
                 }
                break;
             case "TypeParameterInstantiation":
-               s = '<'+ annotation.params.map(generateTypeAnnotation).join(',') + '>';
+               s = '<' + annotation.params.map(generateTypeAnnotation).join(',') + '>';
                break;
             case 'TypeParameterDeclaration':
-               s = '<'+ annotation.params.map(generateIdentifier).join(',') + '>';
+               s = '<' + annotation.params.map(generateIdentifier).join(',') + '>';
                break;
             case 'QualifiedTypeIdentifier':
                 s = generateTypeAnnotation(annotation.qualification) + '.' + generateTypeAnnotation(annotation.id);
                 break;
             case 'NullableTypeAnnotation':
-                s = '?'+generateTypeAnnotation(annotation.typeAnnotation);
+                s = '?' + generateTypeAnnotation(annotation.typeAnnotation);
                 break;
             case 'FunctionTypeAnnotation':
-                s = 
-                  (annotation.typeParameters?generateTypeAnnotation(annotation.typeParameters):'')+
-                  '('+
-                  annotation.params.map(generateTypeAnnotation).join(',')+
-                  (annotation.rest?
-                     (annotation.params.length?',':'')+
-                     '...'+generateTypeAnnotation(annotation.rest):'')+
+                s =
+                  (annotation.typeParameters ? generateTypeAnnotation(annotation.typeParameters) : '') +
+                  '(' +
+                  annotation.params.map(generateTypeAnnotation).join(',') +
+                  (annotation.rest ?
+                     (annotation.params.length ? ',' : '') +
+                     '...' + generateTypeAnnotation(annotation.rest) : '') +
                   ') => ' +
                   generateTypeAnnotation(annotation.returnType);
                 break;
             case 'FunctionTypeParam':
-                s = generateIdentifier(annotation.name)+
-                    (annotation.optional?'?':'')+
-                    ':'+
-                    generateTypeAnnotation(annotation.typeAnnotation)
+                s = generateIdentifier(annotation.name) +
+                    (annotation.optional ? '?' : '') +
+                    ':' +
+                    generateTypeAnnotation(annotation.typeAnnotation);
                 break;
             case 'UnionTypeAnnotation':
                 s = annotation.types.map(generateTypeAnnotation).join('|');
                 break;
             case 'TypeofTypeAnnotation':
-                s = 'typeof '+ generateTypeAnnotation(annotation.argument);
+                s = 'typeof ' + generateTypeAnnotation(annotation.argument);
                 break;
             default:
                 throw 'no support for annotation: ' + JSON.stringify(annotation)
@@ -1033,7 +1034,6 @@
             }
 
             if (node.rest) {
-              debugger
                 if (node.params.length) {
                     result.push(',' + space);
                 }
@@ -1272,7 +1272,7 @@
                 result = join(result, fragment);
                 if (stmt.superTypeParameters) {
                    result.push(generateTypeAnnotation(stmt.superTypeParameters));
-                }              
+                }
             }
             result.push(space);
             result.push(this.generateStatement(stmt.body, S_TFFT));
@@ -1851,7 +1851,7 @@
                 'function',
                 generateStarSuffix(stmt) || noEmptySpace(),
                 generateIdentifier(stmt.id),
-                stmt.typeParameters?generateTypeAnnotation(stmt.typeParameters):'',
+                stmt.typeParameters ? generateTypeAnnotation(stmt.typeParameters) : '',
                 this.generateFunctionBody(stmt)
             ];
         },
@@ -1983,8 +1983,9 @@
             var result, i, iz;
             // F_ALLOW_UNPARATH_NEW becomes false.
             result = [this.generateExpression(expr.callee, Precedence.Call, E_TTF)];
-            if (expr.typeParameters)
-               result.push(generateTypeAnnotation(expr.typeParameters)),
+            if (expr.typeParameters) {
+               result.push(generateTypeAnnotation(expr.typeParameters));
+            }
             result.push('(');
             for (i = 0, iz = expr['arguments'].length; i < iz; ++i) {
                 result.push(this.generateExpression(expr['arguments'][i], Precedence.Assignment, E_TTT));
@@ -2150,7 +2151,7 @@
                 result.push(generateStarSuffix(expr) || space);
             }
             if (expr.typeParameters) {
-               result.push(generateTypeAnnotation(expr.typeParameters))
+               result.push(generateTypeAnnotation(expr.typeParameters));
             }
             result.push(this.generateFunctionBody(expr));
             return result;
@@ -2194,10 +2195,10 @@
                 result.push(newline);
             }
             result.push(multiline ? base : '');
-            result.push(']'); 
-          
+            result.push(']');
+
             if (expr.typeAnnotation) {
-              result.push(':', generateTypeAnnotation(expr.typeAnnotation))
+              result.push(':', generateTypeAnnotation(expr.typeAnnotation));
             }
 
             return result;
@@ -2221,7 +2222,7 @@
                 result = join(result, fragment);
                 if (expr.superTypeParameters) {
                    result.push(generateTypeAnnotation(expr.superTypeParameters));
-                }              
+                }
             }
             result.push(space);
             result.push(this.generateStatement(expr.body, S_TFFT));
@@ -2238,14 +2239,14 @@
             if (expr.kind === 'get' || expr.kind === 'set') {
                 fragment = [
                     join(expr.kind, this.generatePropertyKey(expr.key, expr.computed)),
-                    expr.value.typeParameters?generateTypeAnnotation(expr.value.typeParameters):'',                
+                    expr.value.typeParameters ? generateTypeAnnotation(expr.value.typeParameters) : '',
                     this.generateFunctionBody(expr.value)
                 ];
             } else {
                 fragment = [
                     generateMethodPrefix(expr),
                     this.generatePropertyKey(expr.key, expr.computed),
-                    expr.value.typeParameters?generateTypeAnnotation(expr.value.typeParameters):'',
+                    expr.value.typeParameters ? generateTypeAnnotation(expr.value.typeParameters) : '',
                     this.generateFunctionBody(expr.value)
                 ];
             }
@@ -2269,7 +2270,7 @@
                 return [
                     generateMethodPrefix(expr),
                     this.generatePropertyKey(expr.key, expr.computed),
-                    expr.value.returnType?'<'+generateTypeAnnotation(expr.value.returnType)+'>':'',
+                    expr.value.returnType ? '<' + generateTypeAnnotation(expr.value.returnType) + '>' : '',
                     this.generateFunctionBody(expr.value)
                 ];
             }
@@ -2370,9 +2371,9 @@
             }
             result.push(multiline ? base : '');
             result.push('}');
-          
+
             if (expr.typeAnnotation) {
-                result.push(':', generateTypeAnnotation(expr.typeAnnotation))
+                result.push(':', generateTypeAnnotation(expr.typeAnnotation));
             }
 
             return result;
