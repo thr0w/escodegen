@@ -7420,8 +7420,293 @@ data = {
                 end: { line: 1, column: 40 }
             }
         },
+    },
+"plus":{
+"var a: number, s: string, obj: Namespace.Class":   {
+   "type": "VariableDeclaration",
+    "declarations": [
+      {
+        "type": "VariableDeclarator",
+        "id": {
+          "type": "Identifier",
+          "name": "a",
+          "typeAnnotation": {
+            "type": "TypeAnnotation",
+            "typeAnnotation": {
+              "type": "NumberTypeAnnotation",
+              "range": [
+                7,
+                13
+              ],
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 7
+                },
+                "end": {
+                  "line": 1,
+                  "column": 13
+                }
+              }
+            },
+            "range": [
+              5,
+              13
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 13
+              }
+            }
+          },
+          "range": [
+            4,
+            13
+          ],
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "end": {
+              "line": 1,
+              "column": 13
+            }
+          }
+        },
+        "init": null,
+        "range": [
+          4,
+          13
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 13
+          }
+        }
+      },
+      {
+        "type": "VariableDeclarator",
+        "id": {
+          "type": "Identifier",
+          "name": "s",
+          "typeAnnotation": {
+            "type": "TypeAnnotation",
+            "typeAnnotation": {
+              "type": "StringTypeAnnotation",
+              "range": [
+                18,
+                24
+              ],
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 18
+                },
+                "end": {
+                  "line": 1,
+                  "column": 24
+                }
+              }
+            },
+            "range": [
+              16,
+              24
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 16
+              },
+              "end": {
+                "line": 1,
+                "column": 24
+              }
+            }
+          },
+          "range": [
+            15,
+            24
+          ],
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 1,
+              "column": 24
+            }
+          }
+        },
+        "init": null,
+        "range": [
+          15,
+          24
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 15
+          },
+          "end": {
+            "line": 1,
+            "column": 24
+          }
+        }
+      },
+      {
+        "type": "VariableDeclarator",
+        "id": {
+          "type": "Identifier",
+          "name": "obj",
+          "typeAnnotation": {
+            "type": "TypeAnnotation",
+            "typeAnnotation": {
+              "type": "GenericTypeAnnotation",
+              "id": {
+                "type": "QualifiedTypeIdentifier",
+                "qualification": {
+                  "type": "Identifier",
+                  "name": "Namespace",
+                  "range": [
+                    31,
+                    40
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 31
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 40
+                    }
+                  }
+                },
+                "id": {
+                  "type": "Identifier",
+                  "name": "Class",
+                  "range": [
+                    41,
+                    46
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 41
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 46
+                    }
+                  }
+                },
+                "range": [
+                  31,
+                  46
+                ],
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 46
+                  }
+                }
+              },
+              "typeParameters": null,
+              "range": [
+                31,
+                46
+              ],
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 31
+                },
+                "end": {
+                  "line": 1,
+                  "column": 46
+                }
+              }
+            },
+            "range": [
+              29,
+              46
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 29
+              },
+              "end": {
+                "line": 1,
+                "column": 46
+              }
+            }
+          },
+          "range": [
+            26,
+            46
+          ],
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 26
+            },
+            "end": {
+              "line": 1,
+              "column": 46
+            }
+          }
+        },
+        "init": null,
+        "range": [
+          26,
+          46
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 26
+          },
+          "end": {
+            "line": 1,
+            "column": 46
+          }
+        }
+      }
+    ],
+    "kind": "var",
+    "range": [
+      0,
+      46
+    ],
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 1,
+        "column": 46
+      }
     }
-};
+  }
+}};
 
 function updateDeeply(target, override) {
     var key, val;

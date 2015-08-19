@@ -876,6 +876,9 @@
     function generateTypeAnnotation (annotation) {
         var s;
         switch (annotation.type) {
+            case 'Identifier':
+                s = generateIdentifier(annotation);
+                break;
             case 'TypeAnnotation':
                 s = generateTypeAnnotation(annotation.typeAnnotation);
                 break;
@@ -904,14 +907,14 @@
                 }
                 break;
             case 'ObjectTypeIndexer':
-                s = '[' + generateIdentifier(annotation.id) +
+                s = '[' + generateTypeAnnotation(annotation.id) +
                     ':' + generateTypeAnnotation(annotation.key) +
                      ']:' + generateTypeAnnotation(annotation.value);
                 break;
             case 'ObjectTypeProperty':
                 if (annotation.value.type ===  'FunctionTypeAnnotation' && annotation.key)
                 {
-                     s = generateIdentifier(annotation.key)
+                     s = generateTypeAnnotation(annotation.key)
                        + (annotation.value.typeParameters ? generateTypeAnnotation(annotation.value.typeParameters) : '')
                        + '(' +
                        annotation.value.params.map(generateTypeAnnotation).join(',') +
@@ -922,7 +925,7 @@
                        generateTypeAnnotation(annotation.value.returnType);
                 }
                 else {
-                    s = generateIdentifier(annotation.key) +
+                    s = generateTypeAnnotation(annotation.key) +
                       (annotation.optional ? '?' : '') +
                       ':' +
                       generateTypeAnnotation(annotation.value);
@@ -932,7 +935,7 @@
                 s = generateTypeAnnotation(annotation.elementType) + '[]';
                 break;
             case 'GenericTypeAnnotation':
-                s = generateIdentifier(annotation.id);
+                s = generateTypeAnnotation(annotation.id);
                 if (annotation.typeParameters)
                 {
                     s += generateTypeAnnotation(annotation.typeParameters);
@@ -942,10 +945,10 @@
                s = '<' + annotation.params.map(generateTypeAnnotation).join(',') + '>';
                break;
             case 'TypeParameterDeclaration':
-               s = '<' + annotation.params.map(generateIdentifier).join(',') + '>';
+               s = '<' + annotation.params.map(generateTypeAnnotation).join(',') + '>';
                break;
             case 'QualifiedTypeIdentifier':
-                s = generateTypeAnnotation(annotation.qualification) + '.' + generateTypeAnnotation(annotation.id);
+                s = generateIdentifier(annotation.qualification) + '.' + generateIdentifier(annotation.id);
                 break;
             case 'NullableTypeAnnotation':
                 s = '?' + generateTypeAnnotation(annotation.typeAnnotation);
@@ -962,7 +965,7 @@
                   generateTypeAnnotation(annotation.returnType);
                 break;
             case 'FunctionTypeParam':
-                s = generateIdentifier(annotation.name) +
+                s = generateTypeAnnotation(annotation.name) +
                     (annotation.optional ? '?' : '') +
                     ':' +
                     generateTypeAnnotation(annotation.typeAnnotation);
