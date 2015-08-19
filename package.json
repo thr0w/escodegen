@@ -1,7 +1,7 @@
 {
-    "name": "escodegen",
-    "description": "ECMAScript code generator",
-    "homepage": "http://github.com/estools/escodegen",
+    "name": "escodegen-ts",
+    "description": "ECMAScript code generator ts",
+    "homepage": "http://github.com/thr0w/escodegen",
     "main": "escodegen.js",
     "bin": {
         "esgenerate": "./bin/esgenerate.js",
@@ -15,7 +15,7 @@
         "escodegen.js",
         "package.json"
     ],
-    "version": "1.6.1",
+    "version": "1.6.2",
     "engines": {
         "node": ">=0.10.0"
     },
