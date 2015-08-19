@@ -863,14 +863,14 @@
     };
 
     function generateIdentifier(node) {
-        var name = toSourceNodeWhenNeeded(node.name, node);
+        var name = node.name;
         if (node.optional) {
             name += '?';
         }
         if (node.typeAnnotation) {
-            name += ': ' + generateTypeAnnotation(node.typeAnnotation);
+           name +=  ': ' + generateTypeAnnotation(node.typeAnnotation);
         }
-        return name;
+        return toSourceNodeWhenNeeded(name, node);
     }
 
     function generateTypeAnnotation (annotation) {
